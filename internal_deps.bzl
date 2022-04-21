@@ -77,7 +77,7 @@ def rules_terser_internal_deps():
     maybe(
         http_archive,
         name = "aspect_rules_js",
-        sha256 = "3e64e87a7885f1f4ae21ffaa2dc512b9bc315ff8b6e6332c9ccd5b38d66e230b",
-        strip_prefix = "rules_js-0.4.0",
-        url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v0.4.0.tar.gz",
+        sha256 = "67fd0f62d701a451e17fb48be7208250c203f1e652085d9ee217ed7877fde91b",
+        strip_prefix = "rules_js-84c810238db555f5775993b1360d2380d098164c",
+        url = "https://github.com/aspect-build/rules_js/archive/84c810238db555f5775993b1360d2380d098164c.tar.gz",
     )
