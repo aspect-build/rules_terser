@@ -9,8 +9,7 @@ out="$SCRIPT_DIR/../terser/private/v${version}"
 mkdir -p "$out"
 
 cd $(mktemp -d)
-npx pnpm install terser
-yq -o=json -I=2 eval pnpm-lock.yaml > pnpm-lock.json
+npx pnpm install terser --lockfile-only
 touch BUILD
 cat >WORKSPACE <<EOF
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
@@ -25,9 +24,22 @@ load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
 
 rules_js_dependencies()
 
+load("@rules_nodejs//nodejs:repositories.bzl", "nodejs_register_toolchains")
+
+nodejs_register_toolchains(
+    name = "nodejs",
+    node_version = "16.9.0",
+)
+
+load("@aspect_bazel_lib//lib:repositories.bzl", "DEFAULT_YQ_VERSION", "register_yq_toolchains")
+
+register_yq_toolchains(
+    version = DEFAULT_YQ_VERSION,
+)
+
 load("@aspect_rules_js//js:npm_import.bzl", "translate_pnpm_lock")
 
-translate_pnpm_lock(name = "npm", pnpm_lock = "//:pnpm-lock.json")
+translate_pnpm_lock(name = "npm", pnpm_lock = "//:pnpm-lock.yaml")
 EOF
 bazel fetch @npm//:all
 cp $(bazel info output_base)/external/npm/{node_modules,repositories}.bzl "$out"
