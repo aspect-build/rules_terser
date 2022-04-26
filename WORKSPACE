@@ -6,9 +6,9 @@ load(":internal_deps.bzl", "rules_terser_internal_deps")
 # Fetch deps needed only locally for development
 rules_terser_internal_deps()
 
-load("@aspect_rules_js//js:repositories.bzl", "js_dependencies")
+load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
 
-js_dependencies()
+rules_js_dependencies()
 
 load("@rules_nodejs//nodejs:repositories.bzl", "nodejs_register_toolchains")
 
