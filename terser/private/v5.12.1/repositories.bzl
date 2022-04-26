@@ -36,7 +36,10 @@ def npm_repositories():
         link_package_guard = "",
         package = "source-map-support",
         version = "0.5.21",
-        deps = ["buffer-from@1.1.2", "source-map@0.6.1"],
+        deps = {
+            "buffer-from": "1.1.2",
+            "source-map": "0.6.1",
+        },
         indirect = True,
     )
 
@@ -64,5 +67,10 @@ def npm_repositories():
         link_package_guard = "",
         package = "terser",
         version = "5.12.1",
-        deps = ["acorn@8.7.0", "commander@2.20.3", "source-map@0.7.3", "source-map-support@0.5.21"],
+        deps = {
+            "acorn": "8.7.0",
+            "commander": "2.20.3",
+            "source-map": "0.7.3",
+            "source-map-support": "0.5.21",
+        },
     )
