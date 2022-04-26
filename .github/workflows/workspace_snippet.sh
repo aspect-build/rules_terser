@@ -19,7 +19,7 @@ http_archive(
     url = "https://github.com/aspect-build/rules_terser/archive/refs/tags/${TAG}.tar.gz",
 )
 
-load("@aspect_rules_terser//terser:repositories.bzl", "rules_terser_dependencies", "terser_register_toolchains")
+load("@aspect_rules_terser//terser:repositories.bzl", "rules_terser_dependencies", "terser_register_toolchains", "LATEST_VERSION")
 
 # Fetches the rules_terser dependencies.
 # If you want to have a different version of some dependency,
@@ -30,8 +30,8 @@ rules_terser_dependencies()
 
 # Setup a version of terser
 terser_register_toolchains(
-    name = "terser5",
-    terser_version = "v5.12.1",
+    name = "terser",
+    terser_version = LATEST_VERSION,
 )
 
 \`\`\`

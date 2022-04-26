@@ -8,3 +8,5 @@ TOOL_VERSIONS = {
     "v5.12.1": v5_12_1,
     "v5.13.0": v5_13_0,
 }
+
+LATEST_VERSION = TOOL_VERSIONS.keys()[-1]

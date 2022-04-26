@@ -6,7 +6,10 @@ See https://docs.bazel.build/versions/main/skylark/deploying.html#dependencies
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
-load("//terser/private:versions.bzl", "TOOL_VERSIONS")
+load("//terser/private:versions.bzl", _LATEST_VERSION = "LATEST_VERSION", "TOOL_VERSIONS")
+
+# Expose as Public API
+LATEST_VERSION = _LATEST_VERSION
 
 # WARNING: any changes in this function may be BREAKING CHANGES for users
 # because we'll fetch a dependency which may be different from one that
