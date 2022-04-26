@@ -7,6 +7,6 @@ def terser_help(name, out):
         srcs = [],
         # The result will be in bazel-bin/examples/macro/help
         outs = [out],
-        cmd = "$(location @terser5) --help > $@",
+        cmd = "BAZEL_BINDIR=$(BINDIR) $(location @terser5) --help > $@",
         tools = ["@terser5"],
     )
