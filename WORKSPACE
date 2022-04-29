@@ -6,9 +6,9 @@ load(":internal_deps.bzl", "rules_terser_internal_deps")
 # Fetch deps needed only locally for development
 rules_terser_internal_deps()
 
-load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
+load("@aspect_rules_terser//terser:dependencies.bzl", "rules_terser_dependencies")
 
-rules_js_dependencies()
+rules_terser_dependencies()
 
 load("@rules_nodejs//nodejs:repositories.bzl", "nodejs_register_toolchains")
 
@@ -17,10 +17,7 @@ nodejs_register_toolchains(
     node_version = "16.9.0",
 )
 
-load("//terser:repositories.bzl", "rules_terser_dependencies", "terser_register_toolchains")
-
-# Fetch dependencies which users need as well
-rules_terser_dependencies()
+load("//terser:repositories.bzl", "terser_register_toolchains")
 
 terser_register_toolchains(
     name = "terser5",
