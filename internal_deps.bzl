@@ -62,22 +62,3 @@ def rules_terser_internal_deps():
             "https://github.com/bazelbuild/stardoc/releases/download/0.5.0/stardoc-0.5.0.tar.gz",
         ],
     )
-
-    maybe(
-        http_archive,
-        name = "aspect_bazel_lib",
-        sha256 = "b5bdbfe570f5463607b7eff24f239c2f7ec9b2edc8db45a225e9575c4366b410",
-        strip_prefix = "bazel-lib-0.9.5",
-        url = "https://github.com/aspect-build/bazel-lib/archive/refs/tags/v0.9.5.tar.gz",
-    )
-
-    # Note, this dependency is also in rules_terser_dependencies shared with users,
-    # but locally we need to load this earlier in WORKSPACE since the definition of that rule
-    # is in the same file that imports the versions.bzl which transitively loads this.
-    maybe(
-        http_archive,
-        name = "aspect_rules_js",
-        sha256 = "e5de2d6aa3c6987875085c381847a216b1053b095ec51c11e97b781309406ad4",
-        strip_prefix = "rules_js-0.5.0",
-        url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v0.5.0.tar.gz",
-    )
