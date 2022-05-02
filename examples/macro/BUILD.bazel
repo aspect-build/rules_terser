@@ -1,4 +1,5 @@
 "Uses a macro which calls terser, skipping the custom rule altogether"
+# gazelle:exclude *.bzl
 
 load("//terser/tests:asserts.bzl", "assert_contains")
 load(":my_terser.bzl", "terser_help")

@@ -1,0 +1,16 @@
+load("@aspect_rules_terser//terser:defs.bzl", "terser_minified")
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+
+terser_minified(
+    name = "minified",
+    src = "in.js",
+    sourcemap = False,
+    terser = "@terser5",
+)
+
+write_source_files(
+    name = "minified_diff",
+    files = {
+        "expected.js": ":minified",
+    },
+)
