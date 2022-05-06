@@ -167,6 +167,7 @@ def _impl(ctx):
             "COMPILATION_MODE": ctx.var["COMPILATION_MODE"],
             "BAZEL_BINDIR": ctx.bin_dir.path
         },
+        mnemonic = "TerserMinify",
         progress_message = "Minifying JavaScript %{output}",
     )
     
