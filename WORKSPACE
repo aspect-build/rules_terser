@@ -21,7 +21,7 @@ load("//terser:repositories.bzl", "terser_register_toolchains")
 
 terser_register_toolchains(
     name = "terser5",
-    terser_version = "v5.12.1",
+    terser_version = "v5.13.0",
 )
 
 # For running our own unit tests

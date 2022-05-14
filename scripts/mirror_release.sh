@@ -16,9 +16,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "aspect_rules_js",
-    sha256 = "e5de2d6aa3c6987875085c381847a216b1053b095ec51c11e97b781309406ad4",
-    strip_prefix = "rules_js-0.5.0",
-    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v0.5.0.tar.gz",
+    sha256 = "7bce67d6bfc7992f29f55405a6e750075987c9fc142fdb5d4f452a4b669c3faf",
+    strip_prefix = "rules_js-0.6.2",
+    url = "https://github.com/aspect-build/rules_js/archive/refs/tags/v0.6.2.tar.gz",
 )
 load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
 
@@ -42,5 +42,5 @@ load("@aspect_rules_js//js:npm_import.bzl", "translate_pnpm_lock")
 translate_pnpm_lock(name = "npm", pnpm_lock = "//:pnpm-lock.yaml")
 EOF
 bazel fetch @npm//:all
-cp $(bazel info output_base)/external/npm/{node_modules,repositories}.bzl "$out"
+cp $(bazel info output_base)/external/npm/{defs,repositories}.bzl "$out"
 echo "Mirrored terser versior $version to $out. Now add it to terser/private/versions.bzl"
