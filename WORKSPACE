@@ -20,6 +20,7 @@ nodejs_register_toolchains(
 load("//terser:repositories.bzl", "terser_register_toolchains")
 
 terser_register_toolchains(
+    # Give an unusual name so it's obvious if we've hard-coded it somewhere
     name = "terser5",
     terser_version = "v5.13.0",
 )
