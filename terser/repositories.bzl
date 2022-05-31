@@ -3,7 +3,7 @@
 These are needed for local dev, and users must install them as well.
 See https://docs.bazel.build/versions/main/skylark/deploying.html#dependencies
 """
-
+load("@aspect_rules_js//js:defs.bzl", "constants", "utils")
 load("//terser/private:versions.bzl", "TOOL_VERSIONS", _LATEST_VERSION = "LATEST_VERSION")
 
 # Expose as Public API
@@ -30,13 +30,15 @@ link_js_packages()
 
 js_binary(
     name = "{name}",
-    data = ["//:direct__terser"],
+    data = ["//:{direct_link_prefix}{bazel_name}"],
     entry_point = "run_terser.js",
     visibility = ["//visibility:public"],
 )
 """.format(
         name = repository_ctx.attr.name,
         version = repository_ctx.attr.terser_version,
+        direct_link_prefix = constants.direct_link_prefix,
+        bazel_name = utils.bazel_name("terser"),
     ))
 
 terser_repositories = repository_rule(
