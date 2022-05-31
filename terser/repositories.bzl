@@ -30,7 +30,7 @@ link_js_packages()
 
 js_binary(
     name = "{name}",
-    data = ["//:jsp__terser"],
+    data = ["//:direct__terser"],
     entry_point = "run_terser.js",
     visibility = ["//visibility:public"],
 )
