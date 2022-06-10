@@ -2,61 +2,85 @@
 
 # buildifier: disable=bzl-visibility
 load("@aspect_rules_js//npm/private:npm_linked_packages.bzl", "npm_linked_packages")
-load("@npm__acorn__8.7.1__links//:defs.bzl", link_0 = "npm_link_package")
-load("@npm__buffer-from__1.1.2__links//:defs.bzl", link_1 = "npm_link_package")
-load("@npm__commander__2.20.3__links//:defs.bzl", link_2 = "npm_link_package")
-load("@npm__lodash.sortby__4.7.0__links//:defs.bzl", link_3 = "npm_link_package")
-load("@npm__punycode__2.1.1__links//:defs.bzl", link_4 = "npm_link_package")
-load("@npm__source-map-support__0.5.21__links//:defs.bzl", link_5 = "npm_link_package")
-load("@npm__source-map__0.6.1__links//:defs.bzl", link_6 = "npm_link_package")
-load("@npm__source-map__0.8.0-beta.0__links//:defs.bzl", link_7 = "npm_link_package")
-load("@npm__terser__5.13.0__links//:defs.bzl", link_8 = "npm_link_package")
-load("@npm__tr46__1.0.1__links//:defs.bzl", link_9 = "npm_link_package")
-load("@npm__webidl-conversions__4.0.2__links//:defs.bzl", link_10 = "npm_link_package")
-load("@npm__whatwg-url__7.1.0__links//:defs.bzl", link_11 = "npm_link_package")
+load("@npm__acorn__8.7.1__links//:defs.bzl", link_0_store = "npm_link_imported_package_store")
+load("@npm__buffer-from__1.1.2__links//:defs.bzl", link_1_store = "npm_link_imported_package_store")
+load("@npm__commander__2.20.3__links//:defs.bzl", link_2_store = "npm_link_imported_package_store")
+load("@npm__lodash.sortby__4.7.0__links//:defs.bzl", link_3_store = "npm_link_imported_package_store")
+load("@npm__punycode__2.1.1__links//:defs.bzl", link_4_store = "npm_link_imported_package_store")
+load("@npm__source-map-support__0.5.21__links//:defs.bzl", link_5_store = "npm_link_imported_package_store")
+load("@npm__source-map__0.6.1__links//:defs.bzl", link_6_store = "npm_link_imported_package_store")
+load("@npm__source-map__0.8.0-beta.0__links//:defs.bzl", link_7_store = "npm_link_imported_package_store")
+load("@npm__terser__5.13.0__links//:defs.bzl", link_8_direct = "npm_link_imported_package_direct", link_8_store = "npm_link_imported_package_store")
+load("@npm__tr46__1.0.1__links//:defs.bzl", link_9_store = "npm_link_imported_package_store")
+load("@npm__webidl-conversions__4.0.2__links//:defs.bzl", link_10_store = "npm_link_imported_package_store")
+load("@npm__whatwg-url__7.1.0__links//:defs.bzl", link_11_store = "npm_link_imported_package_store")
 
-def npm_link_all_packages(name = "node_modules"):
+def npm_link_all_packages(name = "node_modules", imported_links = []):
     """Generated list of npm_link_package() target generators and first-party linked packages corresponding to the packages in @//:pnpm-lock.yaml
 
     Args:
         name: name of catch all target to generate for all packages linked
+        imported_links: optional list link functions from manually imported packages
+            that were fetched with npm_import rules,
+
+            For example,
+
+            ```
+            load("@npm//:defs.bzl", "npm_link_all_packages")
+            load("@npm_meaning-of-life__links//:defs.bzl", npm_link_meaning_of_life = "npm_link_imported_package")
+
+            npm_link_all_packages(
+                name = "node_modules",
+                imported_links = [
+                    npm_link_meaning_of_life,
+                ],
+            )```
     """
+
     root_package = ""
-    link_packages = [""]
+    direct_packages = [""]
     is_root = native.package_name() == root_package
-    is_direct = native.package_name() in link_packages
+    is_direct = native.package_name() in direct_packages
     if not is_root and not is_direct:
         msg = "The npm_link_all_packages() macro loaded from @npm//:defs.bzl and called in bazel package '%s' may only be called in the bazel package(s) corresponding to the root package '' and packages ['']" % native.package_name()
         fail(msg)
     direct_targets = []
     scoped_direct_targets = {}
 
-    direct_targets.append(link_0(name = "{}/acorn".format(name), direct = None, fail_if_no_link = False))
-    direct_targets.append(link_1(name = "{}/buffer-from".format(name), direct = None, fail_if_no_link = False))
-    direct_targets.append(link_2(name = "{}/commander".format(name), direct = None, fail_if_no_link = False))
-    direct_targets.append(link_3(name = "{}/lodash.sortby".format(name), direct = None, fail_if_no_link = False))
-    direct_targets.append(link_4(name = "{}/punycode".format(name), direct = None, fail_if_no_link = False))
-    direct_targets.append(link_5(name = "{}/source-map-support".format(name), direct = None, fail_if_no_link = False))
-    direct_targets.append(link_6(name = "{}/source-map".format(name), direct = None, fail_if_no_link = False))
-    direct_targets.append(link_7(name = "{}/source-map".format(name), direct = None, fail_if_no_link = False))
-    direct_targets.append(link_8(name = "{}/terser".format(name), direct = None, fail_if_no_link = False))
-    direct_targets.append(link_9(name = "{}/tr46".format(name), direct = None, fail_if_no_link = False))
-    direct_targets.append(link_10(name = "{}/webidl-conversions".format(name), direct = None, fail_if_no_link = False))
-    direct_targets.append(link_11(name = "{}/whatwg-url".format(name), direct = None, fail_if_no_link = False))
+    for link_fn in imported_links:
+        new_direct_targets, new_scoped_targets = link_fn(name)
+        direct_targets.extend(new_direct_targets)
+        for _scope, _targets in new_scoped_targets.items():
+            scoped_direct_targets[_scope] = scoped_direct_targets[_scope] + _targets if _scope in scoped_direct_targets else _targets
+
+    if is_root:
+        link_0_store(name = "{}/acorn".format(name))
+        link_1_store(name = "{}/buffer-from".format(name))
+        link_2_store(name = "{}/commander".format(name))
+        link_3_store(name = "{}/lodash.sortby".format(name))
+        link_4_store(name = "{}/punycode".format(name))
+        link_5_store(name = "{}/source-map-support".format(name))
+        link_6_store(name = "{}/source-map".format(name))
+        link_7_store(name = "{}/source-map".format(name))
+        link_8_store(name = "{}/terser".format(name))
+        link_9_store(name = "{}/tr46".format(name))
+        link_10_store(name = "{}/webidl-conversions".format(name))
+        link_11_store(name = "{}/whatwg-url".format(name))
+    if is_direct:
+        if native.package_name() == "":
+            direct_targets.append(link_8_direct(name = "{}/terser".format(name)))
 
     for scope, scoped_targets in scoped_direct_targets.items():
-        direct_scoped_targets = [t for t in scoped_targets if t]
-        if direct_scoped_targets:
-            npm_linked_packages(
-                name = "{}/{}".format(name, scope),
-                srcs = direct_scoped_targets,
-                tags = ["manual"],
-                visibility = ["//visibility:public"],
-            )
+        npm_linked_packages(
+            name = "{}/{}".format(name, scope),
+            srcs = scoped_targets,
+            tags = ["manual"],
+            visibility = ["//visibility:public"],
+        )
 
     npm_linked_packages(
         name = name,
-        srcs = [t for t in direct_targets if t],
+        srcs = direct_targets,
         tags = ["manual"],
         visibility = ["//visibility:public"],
     )
