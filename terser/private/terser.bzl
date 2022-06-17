@@ -1,8 +1,6 @@
 "terser"
 
 load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_files_to_bin_actions")
-load("@rules_nodejs//nodejs:providers.bzl", "JSModuleInfo")
-
 
 _DOC = """Run the terser minifier.
 Typical example:
@@ -20,7 +18,6 @@ If the input is a directory, then the output will also be a directory, named aft
 Note that this rule is **NOT** recursive. It assumes a flat file structure. Passing in a folder with nested folder
 will result in an empty output directory.
 """
-
 
 _ATTRS = {
     "args": attr.string_list(
@@ -81,31 +78,26 @@ If you want to do this, you can pass a filegroup here.""",
     ),
     "_windows_constraint": attr.label(
         doc = "Internal use only. Do not change.",
-        default = "@platforms//os:windows"
-    )
+        default = "@platforms//os:windows",
+    ),
 }
 
 def _filter_js(files):
     return [f for f in files if f.is_directory or f.extension == "js" or f.extension == "mjs"]
 
-
 def _impl(ctx):
     _is_windows = ctx.target_platform_has_constraint(ctx.attr._windows_constraint[platform_common.ConstraintValueInfo])
-    
+
     args = ctx.actions.args()
 
     inputs = []
     outputs = []
 
-    # If src has a JSModuleInfo provider than use that otherwise use DefaultInfo files
-    if JSModuleInfo in ctx.attr.src:
-        inputs.extend(ctx.attr.src[JSModuleInfo].sources.to_list())
-    else:
-        inputs.extend(ctx.files.src[:])
-    
+    inputs.extend(ctx.files.src[:])
     inputs = copy_files_to_bin_actions(ctx, inputs, is_windows = _is_windows)
 
     sources = _filter_js(inputs)
+
     # already a treeartifact. no need to copy it
     dir_sources = [s for s in sources if s.is_directory]
 
@@ -126,7 +118,6 @@ def _impl(ctx):
         args.add("--debug")
         args.add("--beautify")
 
-    
     if ctx.attr.sourcemap:
         sourcemaps = [f for f in inputs if f.extension == "map"]
 
@@ -165,24 +156,20 @@ def _impl(ctx):
         arguments = [args],
         env = {
             "COMPILATION_MODE": ctx.var["COMPILATION_MODE"],
-            "BAZEL_BINDIR": ctx.bin_dir.path
+            "BAZEL_BINDIR": ctx.bin_dir.path,
         },
         mnemonic = "TerserMinify",
         progress_message = "Minifying JavaScript %{output}",
     )
-    
+
     outputs_depset = depset(outputs)
-    
+
     return [
         DefaultInfo(files = outputs_depset),
-        JSModuleInfo(
-            direct_sources = outputs_depset,
-            sources = outputs_depset,
-        ),
     ]
 
 lib = struct(
     attrs = _ATTRS,
     doc = _DOC,
-    implementation = _impl
+    implementation = _impl,
 )
