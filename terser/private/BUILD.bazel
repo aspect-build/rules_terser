@@ -10,6 +10,8 @@ bzl_library(
     visibility = ["//terser:__subpackages__"],
     deps = [
         "@aspect_bazel_lib//lib:copy_to_bin",
+        "@aspect_rules_js//js:libs",
+        "@aspect_rules_js//js:providers",
         "@rules_nodejs//nodejs:bzl",
     ],
 )
@@ -18,5 +20,5 @@ bzl_library(
 bzl_library(
     name = "versions",
     srcs = ["versions.bzl"],
-    visibility = ["//terser:__subpackages__"]
+    visibility = ["//terser:__subpackages__"],
 )

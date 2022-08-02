@@ -5,15 +5,15 @@ load("@aspect_rules_js//npm:npm_import.bzl", "npm_import")
 def npm_repositories():
     "Generated npm_import repository rules corresponding to npm packages in @//:pnpm-lock.yaml"
     npm_import(
-        name = "npm__acorn__8.7.1",
+        name = "npm__acorn__8.8.0",
         root_package = "",
         link_workspace = "",
         link_packages = {},
         package = "acorn",
-        version = "8.7.1",
-        integrity = "sha512-Xx54uLJQZ19lKygFXOWsscKUbsBZW0CPykPhVQdhIeIwrbPmJzqeASDInc8nKBnp/JT6igTs82qPXz069H8I/A==",
+        version = "8.8.0",
+        integrity = "sha512-QOxyigPVrpZ2GXT+PFyZTl6TtOFc5egxHIP9IlQ+RbupQuX4RkT/Bee4/kQuC02Xkzg84JcT7oLYtDIQxp+v7w==",
         transitive_closure = {
-            "acorn": ["8.7.1"],
+            "acorn": ["8.8.0"],
         },
     )
 
@@ -133,14 +133,14 @@ def npm_repositories():
         version = "5.13.0",
         integrity = "sha512-sgQ99P+fRBM1jAYzN9RTnD/xEWx/7LZgYTCRgmYriSq1wxxqiQPJgXkkLBBuwySDWJ2PP0PnVQyuf4xLUuH4Ng==",
         deps = {
-            "acorn": "8.7.1",
+            "acorn": "8.8.0",
             "commander": "2.20.3",
             "source-map": "0.8.0-beta.0",
             "source-map-support": "0.5.21",
         },
         transitive_closure = {
             "terser": ["5.13.0"],
-            "acorn": ["8.7.1"],
+            "acorn": ["8.8.0"],
             "commander": ["2.20.3"],
             "source-map": ["0.6.1", "0.8.0-beta.0"],
             "source-map-support": ["0.5.21"],
