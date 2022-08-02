@@ -1,6 +1,8 @@
 "terser"
 
 load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_files_to_bin_actions")
+load("@aspect_rules_js//js:libs.bzl", "js_lib_helpers")
+load("@aspect_rules_js//js:providers.bzl", "js_info")
 
 _DOC = """Run the terser minifier.
 Typical example:
@@ -8,7 +10,7 @@ Typical example:
 load("@aspect_rules_terser//terser:defs.bzl", "terser_minified")
 terser_minified(
     name = "out.min",
-    src = "input.js",
+    srcs = "input.js",
     config_file = "terser_config.json",
 )
 ```
@@ -62,24 +64,23 @@ so that it only affects the current build.
         doc = "Whether to produce a .js.map output",
         default = True,
     ),
-    "src": attr.label(
+    "srcs": attr.label_list(
         doc = """File(s) to minify.
-Can be a .js file, a rule producing .js files as its default output, or a rule producing a directory of .js files.
-Note that you can pass multiple files to terser, which it will bundle together.
-If you want to do this, you can pass a filegroup here.""",
+
+Can be .js files, a rule producing .js files as its default output, or a rule producing a directory of .js files.
+
+If multiple files are passed, terser will bundle them together.""",
         allow_files = [".js", ".map", ".mjs"],
         mandatory = True,
     ),
+    "data": js_lib_helpers.JS_LIBRARY_DATA_ATTR,
     "terser": attr.label(
         doc = "An executable target that runs Terser",
         default = "@terser",
         executable = True,
         cfg = "exec",
     ),
-    "_windows_constraint": attr.label(
-        doc = "Internal use only. Do not change.",
-        default = "@platforms//os:windows",
-    ),
+    "_windows_constraint": attr.label(default = "@platforms//os:windows"),
 }
 
 def _filter_js(files):
@@ -90,28 +91,24 @@ def _impl(ctx):
 
     args = ctx.actions.args()
 
-    inputs = []
-    outputs = []
+    inputs = copy_files_to_bin_actions(ctx, ctx.files.srcs, is_windows = _is_windows)
 
-    inputs.extend(ctx.files.src[:])
-    inputs = copy_files_to_bin_actions(ctx, inputs, is_windows = _is_windows)
+    input_sources = _filter_js(inputs)
+    input_dir_sources = [s for s in input_sources if s.is_directory]
 
-    sources = _filter_js(inputs)
+    output_sources = []
 
-    # already a treeartifact. no need to copy it
-    dir_sources = [s for s in sources if s.is_directory]
-
-    if len(dir_sources) > 0:
-        if len(sources) > 1:
+    if len(input_dir_sources) > 0:
+        if len(input_sources) > 1:
             fail("When directories are passed to terser_minified, there should be only one input")
-        outputs.append(ctx.actions.declare_directory(ctx.label.name))
+        output_sources.append(ctx.actions.declare_directory(ctx.label.name))
     else:
-        outputs.append(ctx.actions.declare_file("%s.js" % ctx.label.name))
+        output_sources.append(ctx.actions.declare_file("%s.js" % ctx.label.name))
         if ctx.attr.sourcemap:
-            outputs.append(ctx.actions.declare_file("%s.js.map" % ctx.label.name))
+            output_sources.append(ctx.actions.declare_file("%s.js.map" % ctx.label.name))
 
-    args.add_all([s.short_path for s in sources])
-    args.add_all(["--output", outputs[0].short_path])
+    args.add_all([s.short_path for s in input_sources])
+    args.add_all(["--output", output_sources[0].short_path])
 
     debug = ctx.attr.debug or ctx.var["COMPILATION_MODE"] == "dbg"
     if debug:
@@ -151,7 +148,7 @@ def _impl(ctx):
 
     ctx.actions.run(
         inputs = inputs,
-        outputs = outputs,
+        outputs = output_sources,
         executable = ctx.executable.terser,
         arguments = [args],
         env = {
@@ -162,10 +159,46 @@ def _impl(ctx):
         progress_message = "Minifying JavaScript %{output}",
     )
 
-    outputs_depset = depset(outputs)
+    transitive_sources = js_lib_helpers.gather_transitive_sources(
+        sources = output_sources,
+        targets = ctx.attr.srcs,
+    )
+
+    transitive_declarations = js_lib_helpers.gather_transitive_declarations(
+        declarations = [],
+        targets = ctx.attr.srcs,
+    )
+
+    npm_linked_packages = js_lib_helpers.gather_npm_linked_packages(
+        srcs = ctx.attr.srcs,
+        deps = [],
+    )
+
+    npm_package_stores = js_lib_helpers.gather_npm_package_stores(
+        targets = ctx.attr.data,
+    )
+
+    runfiles = js_lib_helpers.gather_runfiles(
+        ctx = ctx,
+        sources = transitive_sources,
+        data = ctx.attr.data,
+        deps = ctx.attr.srcs,
+    )
 
     return [
-        DefaultInfo(files = outputs_depset),
+        js_info(
+            npm_linked_packages = npm_linked_packages.direct,
+            npm_package_stores = npm_package_stores.direct,
+            sources = output_sources,
+            transitive_declarations = transitive_declarations,
+            transitive_npm_linked_packages = npm_linked_packages.transitive,
+            transitive_npm_package_stores = npm_package_stores.transitive,
+            transitive_sources = transitive_sources,
+        ),
+        DefaultInfo(
+            files = depset(output_sources),
+            runfiles = runfiles,
+        ),
     ]
 
 lib = struct(
