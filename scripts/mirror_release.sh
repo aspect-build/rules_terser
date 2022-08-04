@@ -39,12 +39,12 @@ register_yq_toolchains(
 
 load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
 
-npm_translate_lock(name = "npm", pnpm_lock = "//:pnpm-lock.yaml")
+npm_translate_lock(name = "npm_aspect_rules_terser", pnpm_lock = "//:pnpm-lock.yaml")
 
-load("@npm//:repositories.bzl", "npm_repositories")
+load("@npm_aspect_rules_terser//:repositories.bzl", "npm_repositories")
 
 npm_repositories()
 EOF
-bazel fetch @npm//:all
-cp $(bazel info output_base)/external/npm/{defs,repositories}.bzl "$out"
+bazel fetch @npm_aspect_rules_terser//:all
+cp $(bazel info output_base)/external/npm_aspect_rules_terser/{defs,repositories}.bzl "$out"
 echo "Mirrored terser versior $version to $out. Now add it to terser/private/versions.bzl"
