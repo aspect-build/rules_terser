@@ -11,17 +11,18 @@ def npm_repositories():
         link_packages = {},
         package = "@jridgewell/gen-mapping",
         version = "0.3.2",
+        lifecycle_hooks_no_sandbox = True,
         integrity = "sha512-mh65xKQAzI6iBcFzwv28KVWSmCkdRBWoOh+bYQGW3+6OZvbbN3TqMGo5hqYxQniRcH9F2VZIoJCm4pa3BPDK/A==",
         deps = {
             "@jridgewell/set-array": "1.1.2",
             "@jridgewell/sourcemap-codec": "1.4.14",
-            "@jridgewell/trace-mapping": "0.3.14",
+            "@jridgewell/trace-mapping": "0.3.15",
         },
         transitive_closure = {
             "@jridgewell/gen-mapping": ["0.3.2"],
             "@jridgewell/set-array": ["1.1.2"],
             "@jridgewell/sourcemap-codec": ["1.4.14"],
-            "@jridgewell/trace-mapping": ["0.3.14"],
+            "@jridgewell/trace-mapping": ["0.3.15"],
             "@jridgewell/resolve-uri": ["3.1.0"],
         },
     )
@@ -33,6 +34,7 @@ def npm_repositories():
         link_packages = {},
         package = "@jridgewell/resolve-uri",
         version = "3.1.0",
+        lifecycle_hooks_no_sandbox = True,
         integrity = "sha512-F2msla3tad+Mfht5cJq7LSXcdudKTWCVYUgw6pLFOOHSTtZlj6SWNYAp+AhuqLmWdBO2X5hPrLcu8cVP8fy28w==",
         transitive_closure = {
             "@jridgewell/resolve-uri": ["3.1.0"],
@@ -46,6 +48,7 @@ def npm_repositories():
         link_packages = {},
         package = "@jridgewell/set-array",
         version = "1.1.2",
+        lifecycle_hooks_no_sandbox = True,
         integrity = "sha512-xnkseuNADM0gt2bs+BvhO0p78Mk762YnZdsuzFV018NoG1Sj1SCQvpSqa7XUaTam5vAGasABV9qXASMKnFMwMw==",
         transitive_closure = {
             "@jridgewell/set-array": ["1.1.2"],
@@ -59,15 +62,16 @@ def npm_repositories():
         link_packages = {},
         package = "@jridgewell/source-map",
         version = "0.3.2",
+        lifecycle_hooks_no_sandbox = True,
         integrity = "sha512-m7O9o2uR8k2ObDysZYzdfhb08VuEml5oWGiosa1VdaPZ/A6QyPkAJuwN0Q1lhULOf6B7MtQmHENS743hWtCrgw==",
         deps = {
             "@jridgewell/gen-mapping": "0.3.2",
-            "@jridgewell/trace-mapping": "0.3.14",
+            "@jridgewell/trace-mapping": "0.3.15",
         },
         transitive_closure = {
             "@jridgewell/source-map": ["0.3.2"],
             "@jridgewell/gen-mapping": ["0.3.2"],
-            "@jridgewell/trace-mapping": ["0.3.14"],
+            "@jridgewell/trace-mapping": ["0.3.15"],
             "@jridgewell/resolve-uri": ["3.1.0"],
             "@jridgewell/sourcemap-codec": ["1.4.14"],
             "@jridgewell/set-array": ["1.1.2"],
@@ -81,6 +85,7 @@ def npm_repositories():
         link_packages = {},
         package = "@jridgewell/sourcemap-codec",
         version = "1.4.14",
+        lifecycle_hooks_no_sandbox = True,
         integrity = "sha512-XPSJHWmi394fuUuzDnGz1wiKqWfo1yXecHQMRf2l6hztTO+nPru658AyDngaBe7isIxEkRsPR3FZh+s7iVa4Uw==",
         transitive_closure = {
             "@jridgewell/sourcemap-codec": ["1.4.14"],
@@ -88,19 +93,20 @@ def npm_repositories():
     )
 
     npm_import(
-        name = "npm_aspect_rules_terser__at_jridgewell_trace-mapping__0.3.14",
+        name = "npm_aspect_rules_terser__at_jridgewell_trace-mapping__0.3.15",
         root_package = "",
         link_workspace = "",
         link_packages = {},
         package = "@jridgewell/trace-mapping",
-        version = "0.3.14",
-        integrity = "sha512-bJWEfQ9lPTvm3SneWwRFVLzrh6nhjwqw7TUFFBEMzwvg7t7PCDenf2lDwqo4NQXzdpgBXyFgDWnQA+2vkruksQ==",
+        version = "0.3.15",
+        lifecycle_hooks_no_sandbox = True,
+        integrity = "sha512-oWZNOULl+UbhsgB51uuZzglikfIKSUBO/M9W2OfEjn7cmqoAiCgmv9lyACTUacZwBz0ITnJ2NqjU8Tx0DHL88g==",
         deps = {
             "@jridgewell/resolve-uri": "3.1.0",
             "@jridgewell/sourcemap-codec": "1.4.14",
         },
         transitive_closure = {
-            "@jridgewell/trace-mapping": ["0.3.14"],
+            "@jridgewell/trace-mapping": ["0.3.15"],
             "@jridgewell/resolve-uri": ["3.1.0"],
             "@jridgewell/sourcemap-codec": ["1.4.14"],
         },
@@ -113,6 +119,7 @@ def npm_repositories():
         link_packages = {},
         package = "acorn",
         version = "8.8.0",
+        lifecycle_hooks_no_sandbox = True,
         integrity = "sha512-QOxyigPVrpZ2GXT+PFyZTl6TtOFc5egxHIP9IlQ+RbupQuX4RkT/Bee4/kQuC02Xkzg84JcT7oLYtDIQxp+v7w==",
         transitive_closure = {
             "acorn": ["8.8.0"],
@@ -126,6 +133,7 @@ def npm_repositories():
         link_packages = {},
         package = "buffer-from",
         version = "1.1.2",
+        lifecycle_hooks_no_sandbox = True,
         integrity = "sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==",
         transitive_closure = {
             "buffer-from": ["1.1.2"],
@@ -139,6 +147,7 @@ def npm_repositories():
         link_packages = {},
         package = "commander",
         version = "2.20.3",
+        lifecycle_hooks_no_sandbox = True,
         integrity = "sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==",
         transitive_closure = {
             "commander": ["2.20.3"],
@@ -152,6 +161,7 @@ def npm_repositories():
         link_packages = {},
         package = "source-map-support",
         version = "0.5.21",
+        lifecycle_hooks_no_sandbox = True,
         integrity = "sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==",
         deps = {
             "buffer-from": "1.1.2",
@@ -171,6 +181,7 @@ def npm_repositories():
         link_packages = {},
         package = "source-map",
         version = "0.6.1",
+        lifecycle_hooks_no_sandbox = True,
         integrity = "sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==",
         transitive_closure = {
             "source-map": ["0.6.1"],
@@ -186,6 +197,7 @@ def npm_repositories():
         },
         package = "terser",
         version = "5.14.0",
+        lifecycle_hooks_no_sandbox = True,
         integrity = "sha512-JC6qfIEkPBd9j1SMO3Pfn+A6w2kQV54tv+ABQLgZr7dA3k/DL/OBoYSWxzVpZev3J+bUHXfr55L8Mox7AaNo6g==",
         deps = {
             "@jridgewell/source-map": "0.3.2",
@@ -202,7 +214,7 @@ def npm_repositories():
             "buffer-from": ["1.1.2"],
             "source-map": ["0.6.1"],
             "@jridgewell/gen-mapping": ["0.3.2"],
-            "@jridgewell/trace-mapping": ["0.3.14"],
+            "@jridgewell/trace-mapping": ["0.3.15"],
             "@jridgewell/resolve-uri": ["3.1.0"],
             "@jridgewell/sourcemap-codec": ["1.4.14"],
             "@jridgewell/set-array": ["1.1.2"],
