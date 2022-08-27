@@ -7,7 +7,7 @@ load("@npm_aspect_rules_terser__at_jridgewell_resolve-uri__3.1.0__links//:defs.b
 load("@npm_aspect_rules_terser__at_jridgewell_set-array__1.1.2__links//:defs.bzl", store_2 = "npm_imported_package_store")
 load("@npm_aspect_rules_terser__at_jridgewell_source-map__0.3.2__links//:defs.bzl", store_3 = "npm_imported_package_store")
 load("@npm_aspect_rules_terser__at_jridgewell_sourcemap-codec__1.4.14__links//:defs.bzl", store_4 = "npm_imported_package_store")
-load("@npm_aspect_rules_terser__at_jridgewell_trace-mapping__0.3.14__links//:defs.bzl", store_5 = "npm_imported_package_store")
+load("@npm_aspect_rules_terser__at_jridgewell_trace-mapping__0.3.15__links//:defs.bzl", store_5 = "npm_imported_package_store")
 load("@npm_aspect_rules_terser__acorn__8.8.0__links//:defs.bzl", store_6 = "npm_imported_package_store")
 load("@npm_aspect_rules_terser__buffer-from__1.1.2__links//:defs.bzl", store_7 = "npm_imported_package_store")
 load("@npm_aspect_rules_terser__commander__2.20.3__links//:defs.bzl", store_8 = "npm_imported_package_store")
