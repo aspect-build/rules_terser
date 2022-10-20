@@ -20,7 +20,7 @@ Note that the examples rely on code in the `/WORKSPACE` file in the root of this
 
 ### From a BUILD file
 
-This is the most common usage. TODO(thesayyn): port the custom rule and document
+This is the most common usage. See [`examples/minify`](examples/minify)
 
 ### From a macro
 
@@ -34,5 +34,3 @@ This is illustrated in examples/macro.
 The most advanced usage is to write your own custom rule.
 
 This is a good choice if you need to integrate with other Bazel rules via [Providers](https://docs.bazel.build/versions/main/skylark/rules.html#providers).
-
-TODO(thesayyn): document how to use the starlark library behind the rule implementation.
