@@ -26,7 +26,7 @@ This is the most common usage. See [`examples/minify`](examples/minify)
 
 You could write a Bazel macro which uses terser, by calling it from a `genrule` or
 [`run_binary`](https://docs.aspect.build/bazelbuild/bazel-skylib/1.2.1/docs/run_binary_doc_gen.html#run_binary).
-For this purpose, you can use the default target in the your `@terser` external repository created by `terser_register_toolchains`.
+For this purpose, you can use the default target in the your `@terser` external repository created by `terser_repositories`.
 This is illustrated in examples/macro.
 
 ### From a custom rule

@@ -5,7 +5,6 @@ terser_minified(
     name = "minified",
     srcs = ["in.js"],
     sourcemap = False,
-    terser = "@terser5",
 )
 
 write_source_files(

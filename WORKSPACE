@@ -21,13 +21,13 @@ nodejs_register_toolchains(
     node_version = "16.9.0",
 )
 
-load("//terser:repositories.bzl", "terser_register_toolchains")
+load("//terser:repositories.bzl", "terser_repositories")
 
-terser_register_toolchains(
-    # Give an unusual name so it's obvious if we've hard-coded it somewhere
-    name = "terser5",
-    terser_version = "v5.13.0",
-)
+terser_repositories(name = "terser")
+
+load("@terser//:npm_repositories.bzl", terser_npm_repositories = "npm_repositories")
+
+terser_npm_repositories()
 
 # For running our own unit tests
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
@@ -41,6 +41,6 @@ load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
 go_rules_dependencies()
 
-go_register_toolchains(version = "1.17.2")
+go_register_toolchains(version = "1.19.3")
 
 gazelle_dependencies()
