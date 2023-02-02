@@ -12,4 +12,5 @@ mkdir -p "$out"
 cd $(mktemp -d)
 npx pnpm install "terser@$version" --lockfile-only
 cp pnpm-lock.yaml "$out"
+cp package.json "$out"
 echo "Mirrored terser versior $version to $out. Now add it to terser/private/versions.bzl"
