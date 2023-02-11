@@ -177,7 +177,7 @@ def _impl(ctx):
     )
 
     npm_package_store_deps = js_lib_helpers.gather_npm_package_store_deps(
-        targets = ctx.attr.data,
+        targets = ctx.attr.data + ctx.attr.deps,
     )
 
     runfiles = js_lib_helpers.gather_runfiles(
