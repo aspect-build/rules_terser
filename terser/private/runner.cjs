@@ -202,7 +202,7 @@ function main() {
 
   // Peek at the arguments to find any directories declared as inputs
   let argv = process.argv.slice(2)
-  // terser_minified.bzl always passes the inputs first,
+  // terser.bzl always passes the inputs first,
   // then --output [out], then remaining args
   // We want to keep those remaining ones to pass to terser
   // Avoid a dependency on a library like minimist; keep it simple.
@@ -255,7 +255,7 @@ function main() {
   } else if (inputs.length > 1) {
     // We don't know how to merge multiple input dirs to one output dir
     throw new Error(
-      'terser_minified only allows a single input when minifying a directory'
+      'terser only allows a single input when minifying a directory'
     )
   } else if (inputs[0]) {
     terserDirectory(inputs[0], output, residual, terserBinary)
