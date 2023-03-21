@@ -1,17 +1,21 @@
 "Uses a macro which calls terser, skipping the custom rule altogether"
 # gazelle:exclude *.bzl
 
-load("//terser/tests:asserts.bzl", "assert_contains")
+load("@aspect_bazel_lib//lib:testing.bzl", "assert_contains")
+load("@npm//:terser/package_json.bzl", "bin")
 load(":my_terser.bzl", "terser_help")
+
+bin.terser_binary(name = "terser")
 
 terser_help(
     name = "help",
     out = "help.txt",
+    terser = "terser",
 )
 
 # Asserting that the macro has the expected output.
 assert_contains(
     name = "test",
     actual = "help.txt",
-    expected = "Usage: run_terser [options] [files...]",
+    expected = "Usage: terser [options] [files...]",
 )
