@@ -1,0 +1,2 @@
+# Needed by rules_js
+build --enable_runfiles
