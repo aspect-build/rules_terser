@@ -26,9 +26,9 @@ nodejs_register_toolchains(
 )
 
 # Fetch and register the terser tool
-load("@aspect_rules_terser//terser:repositories.bzl", "LATEST_VERSION", "terser_register_toolchains")
+load("@aspect_rules_terser//terser:repositories.bzl", "LATEST_TERSER_VERSION", "terser_register_toolchains")
 
 terser_register_toolchains(
     name = "terser",
-    terser_version = LATEST_VERSION,
+    terser_version = LATEST_TERSER_VERSION,
 )

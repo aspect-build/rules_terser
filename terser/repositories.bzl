@@ -4,10 +4,10 @@ These are needed for local dev, and users must install them as well.
 See https://docs.bazel.build/versions/main/skylark/deploying.html#dependencies
 """
 
-load("//terser/private:versions.bzl", "TOOL_VERSIONS", _LATEST_VERSION = "LATEST_VERSION")
+load("//terser/private:versions.bzl", "TOOL_VERSIONS", _LATEST_TERSER_VERSION = "LATEST_TERSER_VERSION")
 
 # Expose as Public API
-LATEST_VERSION = _LATEST_VERSION
+LATEST_TERSER_VERSION = _LATEST_TERSER_VERSION
 
 ########
 # Remaining content of the file is only used to support toolchains.
