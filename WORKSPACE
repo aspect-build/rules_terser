@@ -12,7 +12,11 @@ rules_terser_dependencies()
 
 load("@aspect_bazel_lib//lib:repositories.bzl", "aspect_bazel_lib_dependencies")
 
-aspect_bazel_lib_dependencies(override_local_config_platform = True)
+aspect_bazel_lib_dependencies()
+
+load("@aspect_rules_js//js:repositories.bzl", "rules_js_dependencies")
+
+rules_js_dependencies()
 
 load("@rules_nodejs//nodejs:repositories.bzl", "nodejs_register_toolchains")
 
