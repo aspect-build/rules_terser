@@ -10,18 +10,11 @@ load("@aspect_rules_terser//terser:dependencies.bzl", "rules_terser_dependencies
 
 rules_terser_dependencies()
 
-load("@aspect_bazel_lib//lib:repositories.bzl", "aspect_bazel_lib_dependencies")
+load("@aspect_rules_js//js:toolchains.bzl", "DEFAULT_NODE_VERSION", "rules_js_register_toolchains")
 
-aspect_bazel_lib_dependencies(override_local_config_platform = True)
+rules_js_register_toolchains(node_version = DEFAULT_NODE_VERSION)
 
-load("@rules_nodejs//nodejs:repositories.bzl", "nodejs_register_toolchains")
-
-nodejs_register_toolchains(
-    name = "node16",
-    node_version = "16.9.0",
-)
-
-load("@aspect_rules_js//npm:npm_import.bzl", "npm_translate_lock")
+load("@aspect_rules_js//npm:repositories.bzl", "npm_translate_lock")
 
 npm_translate_lock(
     name = "npm",
