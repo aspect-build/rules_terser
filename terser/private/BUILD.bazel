@@ -15,6 +15,5 @@ bzl_library(
         "@aspect_bazel_lib//lib:copy_to_bin",
         "@aspect_rules_js//js:libs",
         "@aspect_rules_js//js:providers",
-        "@rules_nodejs//nodejs:bzl",
     ],
 )
