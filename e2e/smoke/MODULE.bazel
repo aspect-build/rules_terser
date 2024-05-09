@@ -2,7 +2,7 @@
 
 bazel_dep(name = "aspect_bazel_lib", version = "1.38.0", dev_dependency = True)
 bazel_dep(name = "aspect_rules_terser", version = "0.0.0", dev_dependency = True)
-bazel_dep(name = "aspect_rules_js", version = "1.23.2", dev_dependency = True)
+bazel_dep(name = "aspect_rules_js", version = "1.31.0", dev_dependency = True)
 
 local_path_override(
     module_name = "aspect_rules_terser",
