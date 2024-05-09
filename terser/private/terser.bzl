@@ -1,6 +1,6 @@
 "terser"
 
-load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_files_to_bin_actions")
+load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "COPY_FILE_TO_BIN_TOOLCHAINS", "copy_files_to_bin_actions")
 load("@aspect_rules_js//js:libs.bzl", "js_lib_helpers")
 load("@aspect_rules_js//js:providers.bzl", "js_info")
 
@@ -151,4 +151,5 @@ def _impl(ctx):
 lib = struct(
     attrs = _ATTRS,
     implementation = _impl,
+    toolchains = COPY_FILE_TO_BIN_TOOLCHAINS,
 )

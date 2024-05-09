@@ -7,6 +7,7 @@ load("//terser/private:terser.bzl", terser_lib = "lib")
 _terser = rule(
     implementation = terser_lib.implementation,
     attrs = terser_lib.attrs,
+    toolchains = terser_lib.toolchains,
 )
 
 def terser(
