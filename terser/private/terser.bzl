@@ -110,18 +110,18 @@ def _impl(ctx):
         targets = ctx.attr.srcs,
     )
 
-    transitive_declarations = js_lib_helpers.gather_transitive_declarations(
-        declarations = [],
+    transitive_types = js_lib_helpers.gather_transitive_types(
+        types = [],
         targets = ctx.attr.srcs,
     )
 
-    npm_linked_packages = js_lib_helpers.gather_npm_linked_packages(
+    npm_sources = js_lib_helpers.gather_npm_sources(
         srcs = ctx.attr.srcs,
         deps = [],
     )
 
-    npm_package_store_deps = js_lib_helpers.gather_npm_package_store_deps(
-        targets = ctx.attr.data,
+    npm_package_store_infos = js_lib_helpers.gather_npm_package_store_infos(
+        targets = ctx.attr.srcs + ctx.attr.data,
     )
 
     runfiles = js_lib_helpers.gather_runfiles(
@@ -133,14 +133,13 @@ def _impl(ctx):
 
     return [
         js_info(
-            npm_linked_package_files = npm_linked_packages.direct_files,
-            npm_linked_packages = npm_linked_packages.direct,
-            npm_package_store_deps = npm_package_store_deps,
+            target = ctx.label,
             sources = output_sources_depset,
-            transitive_declarations = transitive_declarations,
-            transitive_npm_linked_package_files = npm_linked_packages.transitive_files,
-            transitive_npm_linked_packages = npm_linked_packages.transitive,
+            types = depset(),  # terser does not emit types directly
             transitive_sources = transitive_sources,
+            transitive_types = transitive_types,
+            npm_sources = npm_sources,
+            npm_package_store_infos = npm_package_store_infos,
         ),
         DefaultInfo(
             files = output_sources_depset,
