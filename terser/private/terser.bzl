@@ -106,7 +106,7 @@ def _impl(ctx):
     output_sources_depset = depset(output_sources)
 
     transitive_sources = js_lib_helpers.gather_transitive_sources(
-        sources = output_sources_depset,
+        sources = output_sources,
         targets = ctx.attr.srcs,
     )
 
