@@ -1,5 +1,4 @@
 name: CI
-
 # Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
@@ -7,16 +6,13 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
 concurrency:
   # Cancel previous actions from the same PR or branch except 'main' branch.
   # See https://docs.github.com/en/actions/using-jobs/using-concurrency and https://docs.github.com/en/actions/learn-github-actions/contexts for more info.
   group: concurrency-group::${{ github.workflow }}::${{ github.event.pull_request.number > 0 && format('pr-{0}', github.event.pull_request.number) || github.ref_name }}${{ github.ref_name == 'main' && format('::{0}', github.run_id) || ''}}
   cancel-in-progress: ${{ github.ref_name != 'main' }}
-
 jobs:
   # Prepares dynamic test matrix values
   matrix-prep:
@@ -51,7 +47,6 @@ jobs:
     outputs:
       bazel-version: ${{ steps.bazel-version.outputs.res }}
       os: ${{ steps.os.outputs.res }}
-
   test:
     runs-on: ${{ matrix.os }}-latest
     needs:
@@ -66,6 +61,9 @@ jobs:
           - '.'
           - 'e2e/smoke'
         exclude:
+          # Root workspace is only bzlmod
+          - folder: .
+            bzlmod: 0
           # Don't test MacOS and Windows against secondary bazel version to minimize minutes (billed at 10X and 2X respectively)
           # https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions#included-storage-and-minutes
           - os: macos
@@ -74,20 +72,16 @@ jobs:
           - os: windows
             bazel-version:
               major: 6
-
     steps:
       - uses: actions/checkout@v4
-
       - name: Mount bazel caches
         uses: actions/cache@v4
         with:
           path: |
             ~/.cache/bazel-disk-cache
             ~/.cache/bazel-repository-cache
-            ~/.cache/xdg-cache
           key: bazel-cache-${{ matrix.bazel-version.version }}-${{ matrix.bzlmod }}-${{ matrix.os }}-${{ matrix.folder }}-${{ hashFiles('.bazelrc', '.bazelversion', '.bazeliskrc', '**/BUILD', '**/BUILD.bazel', '**/*.bzl', 'WORKSPACE', 'WORKSPACE.bazel', 'WORKSPACE.bzlmod', 'MODULE.bazel') }}
           restore-keys: bazel-cache-${{ matrix.bazel-version.version }}-${{ matrix.bzlmod }}-${{ matrix.os }}-${{ matrix.folder }}-
-
       - name: Configure Bazel version
         working-directory: ${{ matrix.folder }}
         shell: bash
@@ -101,14 +95,12 @@ jobs:
           # root .bazelrc brings these in with try-imports. In this CI workflows, we explicitly
           # bring in the version specific bazelrc file with --bazelrc when we invoke bazel.
           rm ${GITHUB_WORKSPACE//\\/\/}/.aspect/bazelrc/bazel*.bazelrc
-
       # TODO: remove this block once we have Aspect CLI Windows releases
       - name: Don't use Aspect CLI on Windows
         if: matrix.os == 'windows'
         working-directory: ${{ matrix.folder }}
         shell: bash
         run: rm -f .bazeliskrc
-
       - name: bazel test //...
         working-directory: ${{ matrix.folder }}
         shell: bash
@@ -122,5 +114,3 @@ jobs:
             --build_tag_filters=-skip-on-bazel${{ matrix.bazel-version.major }} \
             --enable_bzlmod=${{ matrix.bzlmod }} \
             //...
-        env:
-          XDG_CACHE_HOME: ~/.cache/xdg-cache # bazelisk will download bazel to here
