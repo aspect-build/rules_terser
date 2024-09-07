@@ -1,3 +1,4 @@
+.circleci/config.yml
 **/pnpm-lock.yaml
 docs/*.md
 examples/minify/expected.js
