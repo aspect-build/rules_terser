@@ -2,4 +2,7 @@
 
 set -o errexit -o nounset -o pipefail
 
-echo "Demostration delivery target"
+msg="Demostration delivery target"
+echo $msg
+
+export FOO="${BAR}"

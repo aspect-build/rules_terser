@@ -16,6 +16,8 @@ workspaces:
     tasks:
       - test:
           queue: oss-gcp-small
+      - lint:
+          without: true
       - format:
           without: true
       - gazelle:
@@ -28,6 +30,7 @@ workspaces:
           without: true
 tasks:
   - test:
+  - lint:
   - format:
       queue: oss-gcp-small
   - gazelle:

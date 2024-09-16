@@ -2,6 +2,8 @@ load("@buildifier_prebuilt//:rules.bzl", "buildifier")
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
+exports_files([".shellcheckrc"])
+
 npm_link_all_packages(name = "node_modules")
 
 buildifier(
