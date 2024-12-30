@@ -1,4 +1,2 @@
 gitignore_excludes: true
 doublestar: true
-exclude:
-  - .circleci/config.yml

@@ -1,55 +1,27 @@
-queue: oss-gcp-default
-bazel:
-  flags:
-    - --config=rbe
+# See https://docs.aspect.build/workflows/configuration
 workspaces:
   .:
     tasks:
       - test:
-          targets:
-            - //...
-      - configure:
-          bazel:
-            flags: [] # TODO: Aspect CLI does not support --config for configure cmd
   e2e/smoke:
-    icon: bazel
     tasks:
       - test:
-          queue: oss-gcp-small
+          queue: aspect-medium
       - format:
-          without: true
-      - gazelle:
           without: true
       - configure:
           without: true
       - buildifier:
           without: true
-      - delivery:
-          without: true
 tasks:
   - test:
   - format:
-      queue: oss-gcp-small
-  - gazelle:
-      queue: oss-gcp-small
+      queue: aspect-medium
   - configure:
-      queue: oss-gcp-small
+      queue: aspect-medium
   - buildifier:
-      queue: oss-gcp-small
-  - delivery:
-      auto_deliver: true
-      rules:
-        - deliverable: 'attr("tags", "\bdeliverable\b", //...)'
-          condition:
-            branches:
-              - main
-        - deliverable:
-            - //docs:docs_delivery
-          condition:
-            only_on_change: false
-            branches:
-              - main
-  - warming:
-      queue: oss-gcp-warming
+      queue: aspect-medium
+  - finalization:
+      queue: aspect-small
 notifications:
   github: {}

@@ -1,7 +1,5 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 
-# gazelle:exclude v*.*.*/*
-
 exports_files([
     "terser_config.default.json",
     "runner.cjs",
