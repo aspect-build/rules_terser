@@ -1,5 +1,4 @@
 "Uses a macro which calls terser, skipping the custom rule altogether"
-# gazelle:exclude *.bzl
 
 load("@aspect_bazel_lib//lib:testing.bzl", "assert_contains")
 load("@npm//:terser/package_json.bzl", "bin")

@@ -1,5 +1,4 @@
 load("@buildifier_prebuilt//:rules.bzl", "buildifier")
-load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 
 npm_link_all_packages(name = "node_modules")
@@ -18,23 +17,6 @@ buildifier(
     lint_mode = "warn",
     mode = "diff",
     tags = ["manual"],  # tag as manual so windows ci does not build it by default
-)
-
-gazelle_binary(
-    name = "gazelle_bin",
-    languages = DEFAULT_LANGUAGES + ["@bazel_skylib_gazelle_plugin//bzl"],
-)
-
-gazelle(
-    name = "gazelle",
-    gazelle = ":gazelle_bin",
-    mode = "fix",
-)
-
-gazelle(
-    name = "gazelle.check",
-    gazelle = ":gazelle_bin",
-    mode = "diff",
 )
 
 alias(
