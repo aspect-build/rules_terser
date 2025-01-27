@@ -4,7 +4,7 @@
 
 These rules teach Bazel how to interact with the [terser CLI](https://terser.org/docs/cli-usage).
 
-_Need help?_ This ruleset has support provided by https://aspect.dev.
+_Need help?_ This ruleset has support provided by https://aspect.build/services.
 
 ## Installation
 
