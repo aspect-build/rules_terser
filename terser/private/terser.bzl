@@ -80,17 +80,17 @@ def _impl(ctx):
     args.add_all(ctx.attr.args)
 
     if ctx.file.config_file:
-      options = ctx.actions.declare_file("_%s.minify_options.json" % ctx.label.name)
-      inputs.append(options)
-      ctx.actions.expand_template(
-          template = ctx.file.config_file,
-          output = options,
-          substitutions = {
-              "\"bazel_debug\"": str(debug).lower(),
-              "\"bazel_no_debug\"": str(not debug).lower(),
-          },
-      )
-      args.add_all(["--config-file", options.short_path])
+        options = ctx.actions.declare_file("_%s.minify_options.json" % ctx.label.name)
+        inputs.append(options)
+        ctx.actions.expand_template(
+            template = ctx.file.config_file,
+            output = options,
+            substitutions = {
+                "\"bazel_debug\"": str(debug).lower(),
+                "\"bazel_no_debug\"": str(not debug).lower(),
+            },
+        )
+        args.add_all(["--config-file", options.short_path])
 
     ctx.actions.run(
         inputs = inputs,
