@@ -2,6 +2,7 @@
 
 load("@aspect_bazel_lib//lib:copy_file.bzl", "copy_file")
 load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load("@aspect_tools_telemetry_report//:defs.bzl", "TELEMETRY")  # buildifier: disable=load
 load("//terser/private:terser.bzl", terser_lib = "lib")
 
 _terser = rule(
