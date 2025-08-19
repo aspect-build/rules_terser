@@ -15,6 +15,7 @@ bazel_dep(name = "platforms", version = "0.0.5")
 ####### Dev dependencies ########
 
 bazel_dep(name = "aspect_rules_lint", version = "1.0.0-rc9", dev_dependency = True)
+bazel_dep(name = "bazelrc-preset.bzl", version = "1.1.0", dev_dependency = True)
 bazel_dep(name = "buildifier_prebuilt", version = "6.4.0", dev_dependency = True)
 bazel_dep(name = "stardoc", version = "0.6.2", dev_dependency = True, repo_name = "io_bazel_stardoc")
 
