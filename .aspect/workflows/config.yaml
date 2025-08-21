@@ -13,12 +13,16 @@ workspaces:
           without: true
       - buildifier:
           without: true
+bazel:
+  flags:
+    - --config=ci
 tasks:
   - test:
   - format:
       queue: aspect-medium
   - configure:
       queue: aspect-medium
+      flags:
   - buildifier:
       queue: aspect-medium
   - finalization:
