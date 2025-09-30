@@ -1,20 +1,18 @@
 "Fetch our dependencies that users need as well."
 
-load("//terser/private:maybe.bzl", http_archive = "maybe_http_archive")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", _http_archive = "http_archive")
+load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
+
+def http_archive(**kwargs):
+    maybe(_http_archive, **kwargs)
 
 # buildifier: disable=function-docstring
 def rules_terser_dependencies():
     http_archive(
-        name = "bazel_skylib",
-        sha256 = "cd55a062e763b9349921f0f5db8c3933288dc8ba4f76dd9416aac68acee3cb94",
-        urls = ["https://github.com/bazelbuild/bazel-skylib/releases/download/1.5.0/bazel-skylib-1.5.0.tar.gz"],
-    )
-
-    http_archive(
-        name = "aspect_bazel_lib",
-        sha256 = "6d758a8f646ecee7a3e294fbe4386daafbe0e5966723009c290d493f227c390b",
-        strip_prefix = "bazel-lib-2.7.7",
-        url = "https://github.com/aspect-build/bazel-lib/releases/download/v2.7.7/bazel-lib-v2.7.7.tar.gz",
+        name = "bazel_lib",
+        sha256 = "46960e9fa6c9352d883768280951ac388dba8cb9ff0256182fb77925eae2b6ac",
+        strip_prefix = "bazel-lib-3.0.0-beta.1",
+        url = "https://github.com/bazel-contrib/bazel-lib/releases/download/v3.0.0-beta.1/bazel-lib-v3.0.0-beta.1.tar.gz",
     )
 
     http_archive(

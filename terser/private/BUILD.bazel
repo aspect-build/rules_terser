@@ -1,4 +1,4 @@
-load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load("@bazel_lib//:bzl_library.bzl", "bzl_library")
 
 exports_files([
     "terser_config.default.json",
@@ -10,18 +10,8 @@ bzl_library(
     srcs = ["terser.bzl"],
     visibility = ["//terser:__subpackages__"],
     deps = [
-        "@aspect_bazel_lib//lib:copy_to_bin",
         "@aspect_rules_js//js:libs",
         "@aspect_rules_js//js:providers",
-    ],
-)
-
-bzl_library(
-    name = "maybe",
-    srcs = ["maybe.bzl"],
-    visibility = ["//terser:__subpackages__"],
-    deps = [
-        "@bazel_tools//tools/build_defs/repo:http.bzl",
-        "@bazel_tools//tools/build_defs/repo:utils.bzl",
+        "@bazel_lib//lib:copy_to_bin",
     ],
 )

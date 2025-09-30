@@ -1,5 +1,5 @@
-load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 load("@aspect_rules_terser//terser:defs.bzl", "terser")
+load("@bazel_lib//lib:write_source_files.bzl", "write_source_files")
 
 terser(
     name = "minified",
