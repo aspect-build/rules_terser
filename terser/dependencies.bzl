@@ -16,6 +16,13 @@ def rules_terser_dependencies():
     )
 
     http_archive(
+        name = "aspect_bazel_lib",
+        sha256 = "6d758a8f646ecee7a3e294fbe4386daafbe0e5966723009c290d493f227c390b",
+        strip_prefix = "bazel-lib-2.7.7",
+        url = "https://github.com/aspect-build/bazel-lib/releases/download/v2.7.7/bazel-lib-v2.7.7.tar.gz",
+    )
+
+    http_archive(
         name = "aspect_rules_js",
         sha256 = "6b7e73c35b97615a09281090da3645d9f03b2a09e8caa791377ad9022c88e2e6",
         strip_prefix = "rules_js-2.0.0",
