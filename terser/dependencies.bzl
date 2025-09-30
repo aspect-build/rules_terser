@@ -9,6 +9,12 @@ def http_archive(**kwargs):
 # buildifier: disable=function-docstring
 def rules_terser_dependencies():
     http_archive(
+        name = "bazel_skylib",
+        sha256 = "cd55a062e763b9349921f0f5db8c3933288dc8ba4f76dd9416aac68acee3cb94",
+        urls = ["https://github.com/bazelbuild/bazel-skylib/releases/download/1.5.0/bazel-skylib-1.5.0.tar.gz"],
+    )
+
+    http_archive(
         name = "bazel_lib",
         sha256 = "46960e9fa6c9352d883768280951ac388dba8cb9ff0256182fb77925eae2b6ac",
         strip_prefix = "bazel-lib-3.0.0-beta.1",
