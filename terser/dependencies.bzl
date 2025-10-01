@@ -1,6 +1,10 @@
 "Fetch our dependencies that users need as well."
 
-load("//terser/private:maybe.bzl", http_archive = "maybe_http_archive")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", _http_archive = "http_archive")
+load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
+
+def http_archive(**kwargs):
+    maybe(_http_archive, **kwargs)
 
 # buildifier: disable=function-docstring
 def rules_terser_dependencies():
@@ -12,9 +16,9 @@ def rules_terser_dependencies():
 
     http_archive(
         name = "aspect_bazel_lib",
-        sha256 = "6d758a8f646ecee7a3e294fbe4386daafbe0e5966723009c290d493f227c390b",
-        strip_prefix = "bazel-lib-2.7.7",
-        url = "https://github.com/aspect-build/bazel-lib/releases/download/v2.7.7/bazel-lib-v2.7.7.tar.gz",
+        sha256 = "db7da732db4dece80cd6d368220930950c9306ff356ebba46498fe64e65a3945",
+        strip_prefix = "bazel-lib-2.19.3",
+        url = "https://github.com/bazel-contrib/bazel-lib/releases/download/v2.19.3/bazel-lib-v2.19.3.tar.gz",
     )
 
     http_archive(
