@@ -3,9 +3,19 @@
 # and put the release notes into the commit message for the tag.
 name: Release
 on:
+  # Can be triggered from the tag.yaml workflow
+  workflow_call:
+    inputs:
+      tag_name:
+        required: true
+        type: string
+    secrets:
+      BCR_PUBLISH_TOKEN:
+        required: true
+  # Or, developers can manually push a tag from their clone
   push:
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
 permissions:
   id-token: write
   attestations: write
@@ -22,5 +32,5 @@ jobs:
     uses: ./.github/workflows/publish.yaml
     with:
       tag_name: ${{ github.ref_name }}
-    secrets:
-      publish_token: ${{ secrets.BCR_PUBLISH_TOKEN }}
+    secrets: inherit
+
