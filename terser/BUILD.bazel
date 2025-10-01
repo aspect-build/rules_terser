@@ -1,5 +1,5 @@
-load("@bazel_lib//:bzl_library.bzl", "bzl_library")
-load("@bazel_lib//lib:utils.bzl", bazel_lib_utils = "utils")
+load("@aspect_bazel_lib//:bzl_library.bzl", "bzl_library")
+load("@aspect_bazel_lib//lib:utils.bzl", bazel_lib_utils = "utils")
 
 # For stardoc to reference the files
 exports_files(["defs.bzl"])
@@ -20,8 +20,8 @@ bzl_library(
     visibility = ["//visibility:public"],
     deps = [
         "//terser/private:terser",
+        "@aspect_bazel_lib//lib:copy_file",
         "@aspect_rules_js//js:defs",
         "@aspect_tools_telemetry_report//:defs.bzl",
-        "@bazel_lib//lib:copy_file",
     ] + (["@bazel_tools//tools/build_defs/repo:cache.bzl"] if bazel_lib_utils.is_bazel_7_or_greater() else []),
 )

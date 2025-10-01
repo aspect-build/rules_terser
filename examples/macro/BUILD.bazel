@@ -1,6 +1,6 @@
 "Uses a macro which calls terser, skipping the custom rule altogether"
 
-load("@bazel_lib//lib:testing.bzl", "assert_contains")
+load("@aspect_bazel_lib//lib:testing.bzl", "assert_contains")
 load("@npm//:terser/package_json.bzl", "bin")
 load(":my_terser.bzl", "terser_help")
 

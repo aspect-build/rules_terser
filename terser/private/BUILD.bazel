@@ -1,4 +1,4 @@
-load("@bazel_lib//:bzl_library.bzl", "bzl_library")
+load("@aspect_bazel_lib//:bzl_library.bzl", "bzl_library")
 
 exports_files([
     "terser_config.default.json",
@@ -10,8 +10,8 @@ bzl_library(
     srcs = ["terser.bzl"],
     visibility = ["//terser:__subpackages__"],
     deps = [
+        "@aspect_bazel_lib//lib:copy_to_bin",
         "@aspect_rules_js//js:libs",
         "@aspect_rules_js//js:providers",
-        "@bazel_lib//lib:copy_to_bin",
     ],
 )
