@@ -1,13 +1,18 @@
 {
-    "homepage": "https://docs.aspect.build/rules/aspect_rules_terser",
-    "maintainers": [
-      {
-        "email": "alex@aspect.build",
-        "github": "alexeagle",
-        "name": "Alex Eagle"
-      }
-    ],
-    "repository": ["github:aspect-build/rules_terser"],
-    "versions": [],
-    "yanked_versions": {}
+  "homepage": "https://docs.aspect.build/rules/aspect_rules_terser",
+  "maintainers": [
+    {
+      "email": "alex@aspect.build",
+      "github": "alexeagle",
+      "name": "Alex Eagle"
+    },
+    {
+      "email": "jason@aspect.build",
+      "github": "jbedard",
+      "name": "Jason Bedard"
+    }
+  ],
+  "repository": ["github:aspect-build/rules_terser"],
+  "versions": [],
+  "yanked_versions": {}
 }
