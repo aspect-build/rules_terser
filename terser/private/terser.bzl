@@ -31,9 +31,9 @@ def _filter_js(files):
     return [f for f in files if f.is_directory or f.extension == "js" or f.extension == "mjs"]
 
 def maybe_prefix_external(path):
-  if path.startswith('../'):
-    return 'external' + path[2:]
-  return path
+    if path.startswith("../"):
+        return "external" + path[2:]
+    return path
 
 def _impl(ctx):
     args = ctx.actions.args()
