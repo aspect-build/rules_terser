@@ -30,6 +30,11 @@ _ATTRS = {
 def _filter_js(files):
     return [f for f in files if f.is_directory or f.extension == "js" or f.extension == "mjs"]
 
+def maybe_prefix_external(path):
+    if path.startswith("../"):
+        return "external" + path[2:]
+    return path
+
 def _impl(ctx):
     args = ctx.actions.args()
 
@@ -49,8 +54,8 @@ def _impl(ctx):
         if ctx.attr.sourcemap:
             output_sources.append(ctx.actions.declare_file("%s.js.map" % ctx.label.name))
 
-    args.add_all([s.short_path for s in input_sources])
-    args.add_all(["--output", output_sources[0].short_path])
+    args.add_all([maybe_prefix_external(s.short_path) for s in input_sources])
+    args.add_all(["--output", maybe_prefix_external(output_sources[0].short_path)])
 
     debug = ctx.attr.debug or ctx.var["COMPILATION_MODE"] == "dbg"
     if debug:
@@ -90,7 +95,7 @@ def _impl(ctx):
                 "\"bazel_no_debug\"": str(not debug).lower(),
             },
         )
-        args.add_all(["--config-file", options.short_path])
+        args.add_all(["--config-file", maybe_prefix_external(options.short_path)])
 
     ctx.actions.run(
         inputs = inputs,
