@@ -18,7 +18,7 @@ jobs:
   matrix-prep:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - id: bazel-version
         name: Prepare 'bazel-version' matrix axis
         run: |
@@ -77,7 +77,7 @@ jobs:
               major: 7
             bzlmod: 1
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Mount bazel caches
         uses: actions/cache@v4
         with:
