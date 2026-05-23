@@ -1,3 +1,9 @@
 import %workspace%/tools/preset.bazelrc
 
 common --config=ruleset
+
+# CI configuration (used by Aspect CLI via .aspect/config.axl)
+# build without the bytes
+common:ci --remote_download_outputs=minimal
+common:ci --nobuild_runfile_links
+common:ci --lockfile_mode=off
