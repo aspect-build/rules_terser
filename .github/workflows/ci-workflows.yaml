@@ -56,7 +56,7 @@ jobs:
       - name: Buildifier
         run: |
           curl -fsSL https://install.aspect.build | bash -s -- "$INSTALL_ASPECT_LAUNCHER_VERSION"
-          aspect format --task-key=buildifier --formatter-target=//tools/format:buildifier
+          aspect buildifier --task-key=buildifier
   test-e2e-smoke:
     runs-on: ubuntu-latest
     steps:

@@ -2,6 +2,17 @@
 
 load("@aspect//feature/artifacts.axl", "ArtifactUpload")
 load("@aspect//traits.axl", "BazelTrait")
+load("@aspect//format.axl", "format")
+
+# `aspect buildifier` — alias of `aspect format` preset to the Starlark-only
+# formatter target. CI runs `aspect buildifier` instead of repeating the
+# `--formatter-target` flag in each pipeline.
+buildifier = format.alias(
+    defaults = {
+        "formatter_target": "//tools/format:buildifier",
+    },
+    summary = "Format Starlark files using buildifier.",
+)
 
 def config(ctx: ConfigContext):
     is_ci = bool(ctx.std.env.var("CI"))
@@ -10,6 +21,9 @@ def config(ctx: ConfigContext):
         ctx.traits[BazelTrait].extra_flags.extend([
             "--config=ci",
         ])
+
+    # Register the buildifier alias as a real CLI command.
+    ctx.tasks.add(buildifier)
 
     # Enable artifact uploads for testlogs, profile, and BEP.
     # upload_test_logs="failed" — only the logs from failing tests are useful.
