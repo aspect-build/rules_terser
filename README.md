@@ -1,5 +1,9 @@
 # Bazel rules for terser
 
+> [!NOTE]
+> This repository uses the [Aspect CLI](https://github.com/aspect-build/aspect-cli) for CI and local development.
+> See the [docs](https://docs.aspect.build/cli/overview) and [install instructions](https://docs.aspect.build/cli/install) to get started.
+
 [terser](https://terser.org/) is a JavaScript minifier.
 
 These rules teach Bazel how to interact with the [terser CLI](https://terser.org/docs/cli-usage).
