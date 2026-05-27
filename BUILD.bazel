@@ -13,3 +13,8 @@ alias(
     actual = "@buildifier_prebuilt//buildifier",
     tags = ["manual"],  # tag as manual so windows ci does not build it by default
 )
+
+alias(
+    name = "gazelle",
+    actual = "//tools/gazelle",
+)
