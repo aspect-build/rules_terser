@@ -9,4 +9,3 @@ format_multirun(
     tags = ["manual"],
     yaml = "@aspect_rules_lint//format:yamlfmt",
 )
-
