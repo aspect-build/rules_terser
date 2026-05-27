@@ -10,6 +10,6 @@ alias(
 
 alias(
     name = "buildifier",
-    actual = "//tools/format:buildifier",
+    actual = "@buildifier_prebuilt//buildifier",
     tags = ["manual"],  # tag as manual so windows ci does not build it by default
 )
