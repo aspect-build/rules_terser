@@ -9,3 +9,11 @@ common:ci --nobuild_runfile_links
 # Override the preset's `--lockfile_mode=error` on CI since we don't
 # yet commit MODULE.bazel.lock — see .gitignore.
 common:ci --lockfile_mode=off
+
+# Bazel doesn't create runfiles trees on Windows by default, breaking tests
+# that resolve data files by relative path (e.g. bazel-lib's assert_contains).
+# The preset enables --enable_platform_specific_config, so config=windows is
+# applied automatically on Windows hosts. --windows_enable_symlinks is a no-op
+# elsewhere.
+startup --windows_enable_symlinks
+common:windows --enable_runfiles
