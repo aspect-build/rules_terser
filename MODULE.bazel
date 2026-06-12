@@ -2,6 +2,7 @@
 
 module(
     name = "aspect_rules_terser",
+    bazel_compatibility = [">=7.0.0"],
     compatibility_level = 1,
 )
 
@@ -20,6 +21,14 @@ bazel_dep(name = "aspect_gazelle_prebuilt", version = "0.0.20", dev_dependency =
 bazel_dep(name = "aspect_rules_lint", version = "2.6.0", dev_dependency = True)
 bazel_dep(name = "bazelrc-preset.bzl", version = "1.9.2", dev_dependency = True)
 bazel_dep(name = "buildifier_prebuilt", version = "8.5.1.2", dev_dependency = True)
+
+# Transitive dep of aspect_rules_js; older versions resolved by the 2.0.0
+# lower-bound fail on Bazel 9 (removed `incompatible_use_toolchain_transition`).
+bazel_dep(name = "rules_nodejs", version = "6.7.4", dev_dependency = True)
+
+# Transitive dep of aspect_rules_lint's gazelle; the 0.42.0 it resolves
+# fails on Bazel 9 (native CcInfo symbol removed).
+bazel_dep(name = "rules_go", version = "0.61.1", dev_dependency = True)
 
 npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm", dev_dependency = True)
 npm.npm_translate_lock(
