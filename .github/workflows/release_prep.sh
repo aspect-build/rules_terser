@@ -8,18 +8,19 @@ TAG=$1
 # The prefix is chosen to match what GitHub generates for source archives
 PREFIX="rules_terser-${TAG:1}"
 ARCHIVE="rules_terser-$TAG.tar.gz"
-git archive --format=tar --prefix=${PREFIX}/ ${TAG} | gzip > $ARCHIVE
+git archive --format=tar --prefix=${PREFIX}/ ${TAG} | gzip >$ARCHIVE
 SHA=$(shasum -a 256 $ARCHIVE | awk '{print $1}')
 
 # Add generated API docs to the release, see https://github.com/bazelbuild/bazel-central-registry/issues/5593
-docs="$(mktemp -d)"; targets="$(mktemp)"
+docs="$(mktemp -d)"
+targets="$(mktemp)"
 bazel --output_base="$docs" query --output=label --output_file="$targets" 'kind("starlark_doc_extract rule", //...)'
 bazel --output_base="$docs" build --target_pattern_file="$targets" --remote_download_regex='.*doc_extract\.binaryproto'
 tar --create --auto-compress \
-    --directory "$(bazel --output_base="$docs" info bazel-bin)" \
-    --file "$GITHUB_WORKSPACE/${ARCHIVE%.tar.gz}.docs.tar.gz" .
+	--directory "$(bazel --output_base="$docs" info bazel-bin)" \
+	--file "$GITHUB_WORKSPACE/${ARCHIVE%.tar.gz}.docs.tar.gz" .
 
-cat << EOF
+cat <<EOF
 WORKSPACE snippet:
 \`\`\`starlark
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")

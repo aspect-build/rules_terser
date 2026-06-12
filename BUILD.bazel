@@ -17,4 +17,5 @@ alias(
 alias(
     name = "gazelle",
     actual = "//tools/gazelle",
+    tags = ["manual"],  # tag as manual so windows ci does not build it by default
 )

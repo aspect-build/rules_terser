@@ -3,7 +3,6 @@
 # This is easier than having to run manual `git` operations on a local clone.
 # It also runs on a schedule so we don't leave commits unreleased indefinitely
 # (avoiding users having to ping "hey could someone cut a release").
-
 name: Tag a Release
 on:
   # Allow devs to tag manually through the GitHub UI.
@@ -14,7 +13,7 @@ on:
   # which overwhelms BCR maintainers and over-notifies users,
   # and releasing too infrequently which delays delivery of bugfixes and features.
   schedule:
-    - cron: "0 15 9,23 * *"
+    - cron: '0 15 9,23 * *'
 jobs:
   tag:
     permissions:
