@@ -15,20 +15,19 @@ Otherwise later tooling on CI may yell at you about formatting/linting violation
 
 ## Using this as a development dependency of other rules
 
-You'll commonly find that you develop in another WORKSPACE, such as
-some other ruleset that depends on rules_terser, or in a nested
-WORKSPACE in the integration_tests folder.
+You'll commonly find that you develop in another repository, such as
+some other ruleset that depends on rules_terser.
 
 To always tell Bazel to use this directory rather than some release
 artifact or a version fetched from the internet, run this from this
 directory:
 
 ```sh
-OVERRIDE="--override_repository=rules_terser=$(pwd)/rules_terser"
+OVERRIDE="--override_module=aspect_rules_terser=$(pwd)"
 echo "common $OVERRIDE" >> ~/.bazelrc
 ```
 
-This means that any usage of `@rules_terser` on your system will point to this folder.
+This means that any usage of `@aspect_rules_terser` on your system will point to this folder.
 
 ## Releasing
 

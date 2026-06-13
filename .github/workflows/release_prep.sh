@@ -9,7 +9,6 @@ TAG=$1
 PREFIX="rules_terser-${TAG:1}"
 ARCHIVE="rules_terser-$TAG.tar.gz"
 git archive --format=tar --prefix=${PREFIX}/ ${TAG} | gzip >$ARCHIVE
-SHA=$(shasum -a 256 $ARCHIVE | awk '{print $1}')
 
 # Add generated API docs to the release, see https://github.com/bazelbuild/bazel-central-registry/issues/5593
 docs="$(mktemp -d)"
@@ -21,17 +20,8 @@ tar --create --auto-compress \
 	--file "$GITHUB_WORKSPACE/${ARCHIVE%.tar.gz}.docs.tar.gz" .
 
 cat <<EOF
-WORKSPACE snippet:
+\`MODULE.bazel\` snippet:
 \`\`\`starlark
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-http_archive(
-    name = "aspect_rules_terser",
-    sha256 = "${SHA}",
-    strip_prefix = "${PREFIX}",
-    url = "https://github.com/aspect-build/rules_terser/releases/download/${TAG}/${ARCHIVE}",
-)
+bazel_dep(name = "aspect_rules_terser", version = "${TAG:1}")
+\`\`\`
 EOF
-
-awk 'f;/--SNIP--/{f=1}' e2e/smoke/WORKSPACE.bazel
-
-echo "\`\`\`"
