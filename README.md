@@ -14,12 +14,11 @@ _Need help?_ This ruleset has support provided by https://aspect.build/services.
 
 From the release you wish to use:
 <https://github.com/aspect-build/rules_terser/releases>
-copy the WORKSPACE snippet into your `WORKSPACE` file.
+copy the `MODULE.bazel` snippet into your `MODULE.bazel` file.
 
 ## Usage
 
 See the [API documentation](docs/rules) and the example usage in the [`examples/`](https://github.com/aspect-build/rules_terser/tree/main/examples/) directory.
-Note that the examples rely on code in the `/WORKSPACE` file in the root of this repo.
 
 ### From a BUILD file
 
