@@ -4,6 +4,15 @@ import %workspace%/../../tools/preset.bazelrc
 common:ci --remote_download_outputs=minimal
 common:ci --nobuild_runfile_links
 
+# Bazel doesn't create runfiles trees on Windows by default, which breaks the
+# js_binary launcher's ability to resolve the terser runner entry_point via
+# runfiles (it falls back to a BAZEL_BINDIR-relative path that points at the
+# wrong config). The preset enables --enable_platform_specific_config, so
+# config=windows is applied automatically on Windows hosts.
+# --windows_enable_symlinks is a no-op elsewhere.
+startup --windows_enable_symlinks
+common:windows --enable_runfiles
+
 # Override the preset's `--lockfile_mode=error` on CI since we don't
 # yet commit MODULE.bazel.lock — see .gitignore.
 common:ci --lockfile_mode=off
